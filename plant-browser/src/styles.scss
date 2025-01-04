@@ -1,0 +1,8 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    min-height: 100vh; /* Ensures the body stretches to the full viewport height */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    background: linear-gradient(90deg, rgb(70, 104, 77), rgb(62, 97, 72)); /* Gradient background */
+  }

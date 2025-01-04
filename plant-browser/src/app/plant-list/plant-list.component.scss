@@ -1,0 +1,69 @@
+.plant-container{
+  overflow: hidden;
+}
+
+.plant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Responsive grid layout */
+  gap: 16px; /* Space between cards */
+  padding: 32px 16px; /* Padding for top and bottom */
+  max-width: 100%; /* Prevents overflow */
+  margin: 0 auto; /* Centers the grid horizontally */
+  box-sizing: border-box; /* Ensures padding is included in total width */
+  background-color: #D0D7C5; /* Muted green background */
+  border-radius: 35px 35px 0px 0px;
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.plant-grid::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+
+.plant-card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers the card and name */
+  text-align: center;
+}
+
+.plant-card {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; /* Circular card */
+  background-color: #FCFFED; /* Soft cream background color */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Strong shadow for depth */
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end; /* Align moisture level at the bottom */
+  justify-content: center; /* Center horizontally */
+  background-image: url("../../assets/plant-placeholder.jpg");
+  background-repeat: no-repeat;
+}
+
+.moisture-level {
+  font-size: 18px; /* Larger font for emphasis */
+  font-weight: bold;
+  color: #7C8A78; /* Updated darker green color for the moisture percentage */
+  margin-bottom: 12px; /* Space from the bottom edge */
+}
+
+.plant-name {
+  margin-top: 8px; /* Space between the card and the name */
+  font-size: 14px;
+  font-weight: bold;
+  color: #4a4a4a; /* Dark text */
+  font-family: 'Poppins', sans-serif;
+}
+
+.plant-name {
+  cursor: pointer;
+}
+
+.plant-name:hover {
+  text-decoration: underline;
+  color: #3f51b5; /* Adjust to match your theme */
+}

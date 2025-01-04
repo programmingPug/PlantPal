@@ -1,0 +1,10 @@
+<div class="plant-container">
+<div class="plant-grid">
+  <div class="plant-card-container" *ngFor="let plant of plants">
+    <div class="plant-card">
+      <p class="moisture-level">{{ plant.moisture }}</p>
+    </div>
+    <h3 class="plant-name" (click)="openUpdateDialog(plant)">{{ plant.nickname }}</h3>
+  </div>
+</div>
+</div>

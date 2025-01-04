@@ -1,0 +1,35 @@
+.app-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0px; /* Increased padding for a thicker appearance */
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  height: 40px; /* Increased height */
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  font-size: 32px; /* Icon size */
+  color: white; /* Matches the text color */
+}
+
+.app-title {
+  font-family: 'Poppins', sans-serif; /* Friendly and modern font */
+  font-size: 24px; /* Slightly larger for emphasis */
+  font-weight: 500; /* Medium weight for balance */
+  color: white;
+  margin: 0;
+  letter-spacing: 0.5px; /* Subtle spacing */
+}
+
+.app-title .highlight {
+  font-weight: 700; /* Bolder weight for the highlighted part */
+  color: #c8e6c9; /* Soft green for the highlight */
+}
