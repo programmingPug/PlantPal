@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("house-plant-api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a426dce05e7078fd640479bc6275b245e1288429")]
 [assembly: System.Reflection.AssemblyProductAttribute("house-plant-api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("house-plant-api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
