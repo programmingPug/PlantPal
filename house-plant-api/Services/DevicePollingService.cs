@@ -16,7 +16,7 @@
         private readonly ILogger<DevicePollingService> _logger;
         private readonly BluetoothService _bluetoothService;
         private readonly IDbContextFactory<AppDbContext> _dbContextFactory;
-        private readonly TimeSpan _pollingInterval = TimeSpan.FromSeconds(30);
+        private readonly TimeSpan _pollingInterval = TimeSpan.FromSeconds(10);
 
         public DevicePollingService(
             ILogger<DevicePollingService> logger,
