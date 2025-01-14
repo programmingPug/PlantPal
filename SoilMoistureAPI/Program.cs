@@ -33,7 +33,7 @@ builder.Services.AddCors(options =>
 });
 
 // Register the DB context with SQLite
-builder.Services.AddDbContext<SoilMoistureContext>(options =>
+builder.Services.AddDbContext<SoilMoistureFlatContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add Swagger/OpenAPI support
@@ -45,7 +45,7 @@ var app = builder.Build();
 // Apply migrations at startup
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<SoilMoistureContext>();
+    var db = scope.ServiceProvider.GetRequiredService<SoilMoistureFlatContext>();
     db.Database.Migrate();
 }
 

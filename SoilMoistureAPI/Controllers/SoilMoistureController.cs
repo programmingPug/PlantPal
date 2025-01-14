@@ -9,9 +9,9 @@ namespace SoilMoistureAPI.Controllers
     [ApiController]
     public class SoilMoistureController : ControllerBase
     {
-        private readonly SoilMoistureContext _context;
+        private readonly SoilMoistureFlatContext _context;
 
-        public SoilMoistureController(SoilMoistureContext context)
+        public SoilMoistureController(SoilMoistureFlatContext context)
         {
             _context = context;
         }
@@ -25,58 +25,52 @@ namespace SoilMoistureAPI.Controllers
                 return BadRequest("No data received.");
             }
 
-            // Basic validation: ensure required fields are provided.
             if (string.IsNullOrEmpty(data.DeviceId))
             {
                 ModelState.AddModelError("DeviceId", "The DeviceId field is required.");
             }
-            // You might also want to validate moisture level here.
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            // Check if a record for this device already exists
-            var existingRecord = await _context.SoilMoistures
-                .Include(sm => sm.Device)
+            // Attempt to find an existing record for the device
+            var existingRecord = await _context.SoilMoisturesFlat
                 .FirstOrDefaultAsync(sm => sm.DeviceId == data.DeviceId);
 
             if (existingRecord != null)
             {
-                // Update the existing record
+                // Update existing record
                 existingRecord.MoistureLevel = data.MoistureLevel;
                 existingRecord.Timestamp = DateTime.UtcNow;
 
-                _context.SoilMoistures.Update(existingRecord);
+                _context.SoilMoisturesFlat.Update(existingRecord);
                 await _context.SaveChangesAsync();
                 return Ok(existingRecord);
             }
             else
             {
-                // Create a new record
-                var newRecord = new SoilMoisture
+                // Insert new record
+                var newRecord = new SoilMoistureFlat
                 {
                     DeviceId = data.DeviceId,
                     MoistureLevel = data.MoistureLevel,
                     Timestamp = DateTime.UtcNow,
-                    Device = new Device
-                    {
-                        DeviceId = data.DeviceId,
-                        Nickname = "Dave"
-                    }
+                    Nickname = "Dave"
                 };
 
-                _context.SoilMoistures.Add(newRecord);
+                _context.SoilMoisturesFlat.Add(newRecord);
                 await _context.SaveChangesAsync();
                 return Ok(newRecord);
             }
         }
+    
 
         // GET: api/SoilMoisture/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<SoilMoisture>> GetSoilMoisture(int id)
+        public async Task<ActionResult<SoilMoistureFlat>> GetSoilMoisture(int id)
         {
-            var soilMoisture = await _context.SoilMoistures.FindAsync(id);
+            var soilMoisture = await _context.SoilMoisturesFlat.FindAsync(id);
 
             if (soilMoisture == null)
             {
@@ -88,9 +82,9 @@ namespace SoilMoistureAPI.Controllers
 
         // GET: api/SoilMoisture
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SoilMoisture>>> GetSoilMoistures()
+        public async Task<ActionResult<IEnumerable<SoilMoistureFlat>>> GetSoilMoistures()
         {
-            return await _context.SoilMoistures.ToListAsync();
+            return await _context.SoilMoisturesFlat.ToListAsync();
         }
     }
 }

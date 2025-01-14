@@ -10,16 +10,16 @@ namespace SoilMoistureAPI.Controllers
     [ApiController]
     public class DeviceController : ControllerBase
     {
-        private readonly SoilMoistureContext _context;
+        private readonly SoilMoistureFlatContext _context;
 
-        public DeviceController(SoilMoistureContext context)
+        public DeviceController(SoilMoistureFlatContext context)
         {
             _context = context;
         }
 
         // POST: api/Device
         [HttpPost]
-        public async Task<ActionResult<Device>> CreateDevice(Device device)
+        public async Task<ActionResult<Device>> CreateDevice(SoilMoistureFlat device)
         {
             if (device == null || string.IsNullOrEmpty(device.DeviceId))
             {
@@ -27,13 +27,13 @@ namespace SoilMoistureAPI.Controllers
             }
 
             // Check if device already exists
-            var existingDevice = await _context.Devices.FindAsync(device.DeviceId);
+            var existingDevice = await _context.SoilMoisturesFlat.FindAsync(device.DeviceId);
             if (existingDevice != null)
             {
                 return Conflict("Device with the same DeviceId already exists.");
             }
 
-            _context.Devices.Add(device);
+            _context.SoilMoisturesFlat.Add(device);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetDevice), new { id = device.DeviceId }, device);
@@ -41,10 +41,9 @@ namespace SoilMoistureAPI.Controllers
 
         // GET: api/Device/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<Device>> GetDevice(string id)
+        public async Task<ActionResult<SoilMoistureFlat>> GetDevice(string id)
         {
-            var device = await _context.Devices
-                .Include(d => d.SoilMoistures)
+            var device = await _context.SoilMoisturesFlat
                 .FirstOrDefaultAsync(d => d.DeviceId == id);
 
             if (device == null)
@@ -64,7 +63,7 @@ namespace SoilMoistureAPI.Controllers
                 return BadRequest("Nickname cannot be empty.");
             }
 
-            var device = await _context.Devices.FindAsync(id);
+            var device = await _context.SoilMoisturesFlat.FindAsync(id);
             if (device == null)
             {
                 return NotFound("Device not found.");
@@ -95,13 +94,13 @@ namespace SoilMoistureAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDevice(string id)
         {
-            var device = await _context.Devices.FindAsync(id);
+            var device = await _context.SoilMoisturesFlat.FindAsync(id);
             if (device == null)
             {
                 return NotFound("Device not found.");
             }
 
-            _context.Devices.Remove(device);
+            _context.SoilMoisturesFlat.Remove(device);
             await _context.SaveChangesAsync();
 
             return NoContent(); // 204 No Content
@@ -109,7 +108,7 @@ namespace SoilMoistureAPI.Controllers
 
         private bool DeviceExists(string id)
         {
-            return _context.Devices.Any(e => e.DeviceId == id);
+            return _context.SoilMoisturesFlat.Any(e => e.DeviceId == id);
         }
     }
 }

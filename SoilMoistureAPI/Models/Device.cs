@@ -13,6 +13,6 @@ namespace SoilMoistureAPI.Models
         public string Nickname { get; set; }
 
         // Navigation Property
-        public ICollection<SoilMoisture> SoilMoistures { get; set; }
+        //public ICollection<SoilMoisture> SoilMoistures { get; set; }
     }
 }
