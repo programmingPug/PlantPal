@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ./SoilMoistureAPI
+      dockerfile: Dockerfile
+    container_name: soilmoisture_api
+    ports:
+      - "8000:80" # Host port 8000 maps to container port 80 (HTTP)
+    volumes:
+      - ./SoilMoistureAPI/data:/app/data
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Data Source=/app/data/SoilMoisture.db
+    networks:
+      - soilmoisture_network
+    restart: unless-stopped
+
+  client:
+    build:
+      context: ./plant-browser
+      dockerfile: Dockerfile
+    container_name: soilmoisture_client
+    ports:
+      - "3000:80" # Host port 3000 maps to container port 80 (NGINX)
+    depends_on:
+      - api
+    networks:
+      - soilmoisture_network
+    restart: unless-stopped
+
+networks:
+  soilmoisture_network:
+    driver: bridge

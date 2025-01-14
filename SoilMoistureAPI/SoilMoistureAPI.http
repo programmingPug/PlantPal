@@ -1,0 +1,64 @@
+### Base URL
+@baseUrl = http://localhost:80
+
+### Common Headers
+@apiKey = Your_API_Key_1
+
+### 1. Device Management
+
+#### 1.1 Create a New Device
+POST {{baseUrl}}/api/Device
+Content-Type: application/json
+X-API-KEY: {{apiKey}}
+
+{
+  "DeviceId": "ESP32_Device_01",
+  "Nickname": "Greenhouse Sensor"
+}
+
+#### 1.2 Get Device Details
+GET {{baseUrl}}/api/Device/ESP32_Device_01
+X-API-KEY: {{apiKey}}
+
+#### 1.3 Update Device Nickname
+PUT {{baseUrl}}/api/Device/ESP32_Device_01/nickname
+Content-Type: application/json
+X-API-KEY: {{apiKey}}
+
+"Greenhouse Sensor v2"
+
+#### 1.4 Delete a Device
+DELETE {{baseUrl}}/api/Device/ESP32_Device_01
+X-API-KEY: {{apiKey}}
+
+### 2. Soil Moisture Data Management
+
+#### 2.1 Post New Soil Moisture Data
+POST {{baseUrl}}/api/SoilMoisture
+Content-Type: application/json
+X-API-KEY: {{apiKey}}
+
+{
+  "DeviceId": "ESP32_Device_01",
+  "MoistureLevel": 75.5
+}
+
+#### 2.2 Get All Soil Moisture Readings
+GET {{baseUrl}}/api/SoilMoisture?pageNumber=1&pageSize=10
+X-API-KEY: {{apiKey}}
+
+#### 2.3 Get Specific Soil Moisture Reading
+GET {{baseUrl}}/api/SoilMoisture/1
+X-API-KEY: {{apiKey}}
+
+### 3. Health Check
+
+#### 3.1 Get Health Status
+GET {{baseUrl}}/health
+X-API-KEY: {{apiKey}}
+
+### 4. Swagger Documentation Access
+
+#### 4.1 Access Swagger UI
+GET {{baseUrl}}/swagger/index.html
+X-API-KEY: {{apiKey}}

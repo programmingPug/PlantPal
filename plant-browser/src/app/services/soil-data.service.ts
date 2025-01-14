@@ -2,23 +2,24 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SoilData } from '../models/soil-data.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SoilDataService {
-  private apiUrl = 'http://localhost:5284/api/'; // Replace with your actual API endpoint
-  
-  constructor(private http: HttpClient) {}
+  private baseUrl = environment.apiUrl;
+
+  constructor(private http: HttpClient) { }
 
   getPlants(): Observable<SoilData[]> {
-    return this.http.get<SoilData[]>(this.apiUrl + 'devices');
+    return this.http.get<SoilData[]>(`${this.baseUrl}/SoilMoisture`);
   }
 
-    // Update device nickname
-    updateNickname(name: string, nickname: string): Observable<any> {
-      const url = `${this.apiUrl}devices/${encodeURIComponent(name)}/nickname`;
-      return this.http.put(url, { nickname: nickname });
-    }
+  // Update device nickname
+  updateNickname(name: string, nickname: string): Observable<any> {
+    const url = `${this.baseUrl}/Device/${encodeURIComponent(name)}/nickname`;
+    return this.http.put(url, { nickname: nickname });
+  }
 
 }
