@@ -17,7 +17,7 @@ Because knowing when to water your plants is hard
 
 ## About The Project
 
-![Prototype 1](https://imgur.com/a/tMQBOKO)
+![Prototype 1](https://imgur.com/a/tMQBOKO.png)
 
 I love having plants around but I often forget to water them or how much to water them. So I initially started this project to just check if soil was dry and have a small piezo buzzer go off when a plant needed water. Well things escalated as I wanted to add features and now I'm at the point where it's a multi-system product with multiple moving parts. 
 
