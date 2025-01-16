@@ -182,4 +182,4 @@ Distributed under the MIT License. See [MIT License](https://opensource.org/lice
 
 Christopher Koch - ckoch@lazypug.net
 
-Project Link: https://github.com/programmingPug/houseplant
+Project Link: https://github.com/programmingPug/plantpal
