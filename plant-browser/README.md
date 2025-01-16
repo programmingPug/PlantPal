@@ -1,59 +1,42 @@
-# PlantBrowser
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+<br/>
+<div align="center">
+<a href="https://github.com/programmingPug/plantpal">
+<img src="https://imgur.com/BdczfrQ.png" alt="Logo" width="80" height="80">
+</a>
+<h3 align="center">PlantPal</h3>
+<p align="center">
+Because knowing when to water your plants is hard
+</p>
+</div>
 
-## Development server
+## Client features
 
-To start a local development server, run:
+### Modern Standalone Components:
+- The client is built (e.g., in Angular) using standalone components to simplify development, improve reusability, and ensure easier integration with the REST API.
 
-```bash
-ng serve
-```
+### Dashboard Overview:
+- The UI provides a comprehensive dashboard displaying key sensor data such as soil moisture levels, battery percentages, and timestamps for the latest readings.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Real-Time & Historical Data:
 
-## Code scaffolding
+- Real-Time Updates: The client periodically (or via WebSockets, if implemented) fetches the latest sensor data from the API for immediate display.
+- Historical Visualization: Graphs and charts can illustrate trends over time (if historical data is supported by the backend).
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Device Management:
 
-```bash
-ng generate component component-name
-```
+- Editing: Users can click on a device’s name to open a dialog (styled consistently with the parent application) and update its nickname.
+- Removal: The interface provides an endpoint for removing devices from the monitoring system.
+- Configuration: The client is set up to use environment-specific settings (e.g., pointing to a production API endpoint over CORS-friendly URLs).
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### REST API Integration:
+- The application communicates with the backend API seamlessly, handling CORS policies appropriately. It uses Angular’s HttpClient (or similar libraries) to manage GET/POST requests to retrieve and update soil moisture data.
 
-```bash
-ng generate --help
-```
+### Swagger and Documentation:
+- The client (and possibly the developer portal) references Swagger documentation available for the API, ensuring that API changes are clearly documented and easily testable.
 
-## Building
+### Responsive Design:
+- The application is responsive and designed for both mobile and desktop use—making it easy for users in the field or in the office to quickly assess sensor status and history.
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Customizable & Environment-Aware:
+- Configuration for connecting to the API (base URL, API key) is managed via environment variables or configuration files so that the client can be adapted between development, staging, and production without code changes.
