@@ -36,25 +36,134 @@ The end goal is to have the probe nodes collect soil moisture, soil temperature,
 
 This project is built on the following technologies:
 
+- [NPM](https://www.npmjs.com/)
+- [Node](https://nodejs.org/en)
+- [Node](https://www.docker.com/)
 - [Angular](https://angular.dev/)
 - [.Net](https://dotnet.microsoft.com/en-us/download)
 - [XAIO ESP32-C6](https://wiki.seeedstudio.com/xiao_esp32c6_getting_started/)
 - [Eagle](https://www.autodesk.com/products/eagle/overview?term=1-YEAR&tab=subscription)
 - [Arduino](https://www.arduino.cc/)
-### Installation
 
+## Project Structures:
 
-   ```sh
-docker build -t plantpal-client:latest .
-docker image tag plantpal-client 192.168.1.193:5000/plantpal-client
-docker push 192.168.1.193:5000/plantpal-client
-   ```
+- plant-browser: Front-end client.
+- SoilMoistureAPI: Backend API.
+- Eagle: PCB project for soil nodes.
+- batteryValidationTest: Arduino project for testing batteries.
+- soilReporterNode: Arduino project for probe notes to report and forward data to API.
+- soilProbeNode: Arduino project for gathering plant information.
 
-   ```sh
+## Requirement (Client and API)
+
+- Node: v22.12.0
+- NPM: v10.9.0
+- Docker: v27.4.0
+
+## Requirement (Hardware)
+- Arduino IDE: v10
+ - WiFiManager
+ - Additional Boards: (https://espressif.github.io/arduino-esp32/package_esp32_index.json)
+- XAIO ESP32C6
+- Soil Sensor 2.0
+- Miscellaneous electrical components
+
+## Installing for Local Development:
+
+### API:
+You will need to modify a few things int he API project for local development.
+
+1) program.cs
+```js
+options.ListenAnyIP(80) --> options.ListenAnyIP(8000)
+```
+
+2) appsettings.json
+```js
+"DefaultConnection": "Data Source=app/data/SoilMoisture.db" --> "DefaultConnection": "Data Source=SoilMoisture.db"
+```
+
+Then just click "http" to run the API.
+
+## Install client dependencies:
+From the client folder
+
+Install dependencies
+```sh
+npm install
+```
+
+Run the Client:
+```sh
+ng s
+```
+
+## Building Images:
+Building images for runtime distrobution
+
+### API image:
+
+Build docker image
+```sh
 docker build --no-cache -t plantpal-api:latest .
+```
+
+Tag image
+```sh
 docker image tag plantpal-api 192.168.1.193:5000/plantpal-api
+```
+
+Push to registry
+```sh
 docker push 192.168.1.193:5000/plantpal-api
-   ```
+```
+
+### Client image:
+Building images for runtime distrobution
+
+Build docker image
+```sh
+docker build -t plantpal-client:latest .
+```
+
+Tag image
+```sh
+docker image tag plantpal-client 192.168.1.193:5000/plantpal-client
+```
+
+Push to registry
+```sh
+docker push 192.168.1.193:5000/plantpal-client
+```
+
+### Running Docker Images:
+
+Create new docker network for the containers to communicate
+```sh
+docker network create soilmoisture_network
+```
+
+### Run API image
+
+Run API
+```sh
+docker run -d --name plantpal_api --network soilmoisture_network -p 8000:80 plantpal_api:latest
+```
+
+Run client image
+```sh
+docker run -d --name plantpal_client --network plantpal_network -p 3000:80 plantpal_client:latest
+```
+
+### Docker Compose:
+optionally You can also use docker compose with the file at the root
+
+```sh
+docker-compose up -d --build
+```
+
+
+
 ## Roadmap
 
 - [X] Functional API
