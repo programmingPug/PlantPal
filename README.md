@@ -141,13 +141,13 @@ docker push 192.168.1.193:5000/plantpal-client
 ### Create Docker Network
 Create new docker network for the containers to communicate
 ```sh
-docker network create soilmoisture_network
+docker network create plantpal_network
 ```
 
 ### Run API Image
 
 ```sh
-docker run -d --name plantpal_api --network soilmoisture_network -p 8000:80 plantpal_api:latest
+docker run -d --name plantpal_api --network plantpal_network -p 8000:80 plantpal_api:latest
 ```
 
 ### Run Client Image
