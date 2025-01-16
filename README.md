@@ -136,21 +136,21 @@ Push to registry
 docker push 192.168.1.193:5000/plantpal-client
 ```
 
-### Running Docker Images:
+## Running Docker Images:
 
+### Create Docker Network
 Create new docker network for the containers to communicate
 ```sh
 docker network create soilmoisture_network
 ```
 
-### Run API image
+### Run API Image
 
-Run API
 ```sh
 docker run -d --name plantpal_api --network soilmoisture_network -p 8000:80 plantpal_api:latest
 ```
 
-Run client image
+### Run Client Image
 ```sh
 docker run -d --name plantpal_client --network plantpal_network -p 3000:80 plantpal_client:latest
 ```
