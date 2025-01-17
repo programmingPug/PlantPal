@@ -167,7 +167,7 @@ docker-compose up -d --build
 ## Roadmap
 
 - [X] Functional API
-- [ ] Functional Client
+- [X] Functional Client
 - [X] Functional reporter node
 - [ ] Functional prob node
 - [X] Unraid integration
