@@ -25,7 +25,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowClient",
         builder =>
         {
-            //builder.WithOrigins("http://localhost:3000", "http://soilmoisture_client:80")
+            //builder.WithOrigins("http://localhost:3000", "http://localhost:4200", "http://soilmoisture_client:80")
             builder.AllowAnyOrigin()
                    .AllowAnyHeader()
                    .AllowAnyMethod();

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { SoilData } from '../models/soil-data.model';
+import { deviceDto } from '../models/device-dto.model';
 import { SoilDataService } from '../services/soil-data.service';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,7 +11,7 @@ import { UpdateNicknameDialogComponent, UpdateNicknameData } from '../dialogs/up
   selector: 'app-plant-list',
   templateUrl: './plant-list.component.html',
   styleUrls: ['./plant-list.component.scss'],
-  imports:[
+  imports: [
     CommonModule
   ]
 })
@@ -23,7 +24,7 @@ export class PlantListComponent {
   constructor(
     private plantService: SoilDataService,
     private dialog: MatDialog,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.fetchPlants();
@@ -45,25 +46,25 @@ export class PlantListComponent {
   openUpdateDialog(device: SoilData): void {
     const dialogRef = this.dialog.open(UpdateNicknameDialogComponent, {
       width: '300px',
-      data: { name: device.name, nickname: device.nickname }
+      data: { nickname: device.nickname }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.updateNickname(device.name, result.nickname);
+        let deviceDto: deviceDto = {
+          id: device.id,
+          deviceId: device.deviceId,
+          nickname: result.nickname
+        };
+        this.updateNickname(deviceDto);
       }
     });
   }
 
-  updateNickname(name: string, nickname: string): void {
-    this.plantService.updateNickname(name, nickname).subscribe(
+  updateNickname(deviceDto: deviceDto): void {
+    this.plantService.updateNickname(deviceDto).subscribe(
       (response: any) => {
-        console.log(response.message);
-        // Update the local device list
-        const device = this.plants.find(d => d.name === name);
-        if (device) {
-          device.nickname = nickname;
-        }
+        this.fetchPlants();
       },
       (error: any) => {
         console.error('Error updating nickname:', error);

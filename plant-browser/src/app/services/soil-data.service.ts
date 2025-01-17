@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SoilData } from '../models/soil-data.model';
 import { environment } from '../../environments/environment';
+import { deviceDto } from '../models/device-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +18,9 @@ export class SoilDataService {
   }
 
   // Update device nickname
-  updateNickname(name: string, nickname: string): Observable<any> {
-    const url = `${this.baseUrl}/Device/${encodeURIComponent(name)}/nickname`;
-    return this.http.put(url, { nickname: nickname });
+  updateNickname(deviceDto: deviceDto): Observable<any> {
+    const url = `${this.baseUrl}/Device/${deviceDto.id}/nickname`;
+    return this.http.put(url, deviceDto);
   }
 
 }

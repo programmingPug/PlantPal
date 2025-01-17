@@ -1,6 +1,7 @@
 export interface SoilData {
-    timestamp: Date;
-    moisture: number;
-    name: string;
-    nickname: string;
-  }
+  id: number;
+  timestamp: Date;
+  moistureLevel: number;
+  deviceId: string;
+  nickname: string;
+}

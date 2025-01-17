@@ -56,9 +56,9 @@ namespace SoilMoistureAPI.Controllers
 
         // PUT: api/Device/{id}/nickname
         [HttpPut("{id}/nickname")]
-        public async Task<IActionResult> UpdateNickname(string id, [FromBody] string newNickname)
+        public async Task<IActionResult> UpdateNickname(int id, [FromBody] DeviceDto deviceUpdate)
         {
-            if (string.IsNullOrEmpty(newNickname))
+            if (string.IsNullOrEmpty(deviceUpdate.Nickname))
             {
                 return BadRequest("Nickname cannot be empty.");
             }
@@ -69,7 +69,7 @@ namespace SoilMoistureAPI.Controllers
                 return NotFound("Device not found.");
             }
 
-            device.Nickname = newNickname;
+            device.Nickname = deviceUpdate.Nickname;
             _context.Entry(device).State = EntityState.Modified;
 
             try
@@ -106,9 +106,9 @@ namespace SoilMoistureAPI.Controllers
             return NoContent(); // 204 No Content
         }
 
-        private bool DeviceExists(string id)
+        private bool DeviceExists(int id)
         {
-            return _context.SoilMoisturesFlat.Any(e => e.DeviceId == id);
+            return _context.SoilMoisturesFlat.Any(e => e.Id == id);
         }
     }
 }
